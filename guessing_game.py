@@ -9,7 +9,7 @@ lower_lim = -1000
 upper_lim = 1000
 
 def observation(guess):
-	obs,raw,done,info = env.step(np.array([guess]))
+	obs,reward,done,info = env.step(np.array([guess]))
 	return obs
 
 for i in range(1,201):
