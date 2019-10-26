@@ -4,23 +4,28 @@ import numpy as np
 env  = gym.make("GuessingGame-v0")
 env.reset()
 
-lower_limit = -1000
-upper_limit  = 1000
+guess=0
+lower_lim = -1000
+upper_lim = 1000
+
+def observation(guess):
+	obs,raw,done,info = env.step(np.array([guess]))
+	return obs
 
 for i in range(1,201):
-	print("Step",i)
-	value =  ((lower_limit+upper_limit)/2)
-	obs,rew,done,info = env.step(np.array([value]))
-
-	if obs ==1:
-		print(value, "lower than target")
-		lower_limit=value
-	if obs ==3:
-		print(value, "higher than target")
-		upper_limit =value
+	print("Step {}".format(i))
+	obs = observation(guess)
+	if obs==1:
+		print("{} is lower than target".format(guess))
+		lower_lim = guess
+	if obs==3:
+		print("{} is higher than target".format(guess))
+		upper_lim = guess
 	if obs ==2:
-		print( "Target acquired",value)
+		print("{} is the number".format(guess))
 		break
+
+	guess = ((lower_lim+upper_lim)/2)
 
 env.close()
 
